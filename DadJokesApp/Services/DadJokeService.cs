@@ -30,12 +30,11 @@ namespace DadJokesApp.Services
                         { "X-RapidAPI-Host", _configuration["ApiSettings:X-RapidAPI-Host"] },
                     },
                 };
+
                 using (var response = await _httpClient.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadFromJsonAsync<DadJokeResponse>(); ;
-                    
-                        
+                    return await response.Content.ReadFromJsonAsync<DadJokeResponse>();                   
                 }
             }
             catch (HttpRequestException ex)
@@ -43,8 +42,8 @@ namespace DadJokesApp.Services
                 return new DadJokeResponse
                 {
                     success = false,
-                    message = "50 request per day reached (Random Jokes). Invalid API key. Go to https:\\\\docs.rapidapi.com\\docs\\keys for more info."
-                }; ;
+                    message = "Request per day reached (Random Jokes). Invalid API key. Go to https:\\\\docs.rapidapi.com\\docs\\keys for more info."
+                }; 
             }
             catch (Exception ex)
             {
@@ -79,15 +78,19 @@ namespace DadJokesApp.Services
             }
             catch (HttpRequestException ex)
             {
-                // Log the exception or handle it as needed
-                Console.WriteLine("HTTP Request Exception: " + ex.Message);
-                return null;
+                return new DadJokeCountResponse
+                {
+                    success = false,
+                    message = ex.Message
+                };
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it as needed
-                Console.WriteLine("Exception: " + ex.Message);
-                return null;
+                return new DadJokeCountResponse
+                {
+                    success = false,
+                    message = ex.Message
+                };
             }
         }
     }

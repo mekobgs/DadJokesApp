@@ -1,10 +1,8 @@
 ﻿namespace DadJokesApp.Model
 {
-    public class DadJokeResponse
+    public class DadJokeResponse: DefaultModel
     {
-        public bool success { get; set; }
         public List<Body> body { get; set; }
-        public string message { get; set; }
     }
 
     public class Body
@@ -14,9 +12,8 @@
         public string punchline { get; set; }
     }
 
-    public class DadJokeCountResponse
+    public class DadJokeCountResponse: DefaultModel
     {
-        public bool success { get; set; }
         public int body { get; set; }
     }
 }
