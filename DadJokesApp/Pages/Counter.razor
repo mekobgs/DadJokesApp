@@ -1,0 +1,34 @@
+﻿@page "/counter"
+@using DadJokesApp.Interface;
+@using DadJokesApp.Model;
+
+<PageTitle>DadJokes</PageTitle>
+
+<h3>Hit the button below to get some Dad Jokes!</h3>
+@if (randomJoke != null)
+{
+    <p role="status">Current count: @jokeCount.body</p>
+
+    if (randomJoke.success)
+    {
+        <JokePrompt Title="Let's get a Random Jokes" body="@randomJoke.body"></JokePrompt>
+    }
+    else
+    {
+        <p><strong>Error:</strong> @randomJoke.message</p>
+    }
+}
+
+<button @onclick="GetRandomJoke">Get Random Joke</button>
+
+@code {
+    DadJokeCountResponse jokeCount;
+    DadJokeResponse randomJoke;
+    [Inject] private IDadJokesService DadJokesService { get; set; }
+
+    private async Task GetRandomJoke()
+    {
+        randomJoke = await DadJokesService.GetRandomJokeAsync();
+        jokeCount = await DadJokesService.GetJokeCountAsync();
+    }
+}
