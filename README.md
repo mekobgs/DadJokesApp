@@ -34,7 +34,7 @@ This Blazor WebAssembly application demonstrates how to fetch and display random
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/mekobgs/dad-jokes-blazor.git
+   git clone https://github.com/mekobgs/DadJokesApp.git
    cd dad-jokes-blazor
 
 2. Build and run the application:
